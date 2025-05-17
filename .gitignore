@@ -1,0 +1,8 @@
+# ── local datasets ───────────────────────────────────
+dataset-src/
+dataset-raw/
+
+# ── build artefacts ──────────────────────────────────
+tools/build/
+__pycache__/
+*.pyc
