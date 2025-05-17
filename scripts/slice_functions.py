@@ -1,50 +1,66 @@
 #!/usr/bin/env python3
 """
-Walk dataset-raw/clar-src/, emit one JSONL line per Clarity function.
+Regex-based Clarity function slicer.
+Extracts every (define-public|define-private|define-read-only ...) block
+and writes one JSONL line per function.
 """
 
-import json, pathlib, re
-from scripts.tree_sitter_loader import get_clarity_parser
+import json, pathlib, re, textwrap
 
 SRC_DIR = pathlib.Path("dataset-raw/clar-src")
 OUT_FILE = pathlib.Path("dataset-raw/functions.jsonl")
-parser = get_clarity_parser()
 
-VISIBILITY_NODES = {
-    "define_public_function": "public",
-    "define_private_function": "private",
-    "define_read_only_function": "read-only",
-}
+FUNC_RE = re.compile(
+    rb"\(\s*(define-(?:public|private|read-only))\s+\(([^)\s]+)",  # (define-public (fn-name
+    re.IGNORECASE,
+)
 
-def node_text(src_bytes, node):
-    return src_bytes[node.start_byte: node.end_byte].decode()
+def slice_file(path: pathlib.Path):
+    src = path.read_bytes()
+    results = []
+    for m in FUNC_RE.finditer(src):
+        start = m.start()          # start of “(define-public …”
+        depth = 0
+        i = start
+        while i < len(src):
+            if src[i:i+1] == b"(":
+                depth += 1
+            elif src[i:i+1] == b")":
+                depth -= 1
+                if depth == 0:
+                    i += 1  # include the closing paren
+                    break
+            i += 1
+        snippet = src[start:i].decode(errors="ignore")
+        results.append(
+            {
+                "id": f"{path.name}::{m.group(2).decode()}",
+                "repo": path.name.split("__")[0],
+                "file": "__".join(path.name.split("__")[1:]),
+                "fn_name": m.group(2).decode(),
+                "visibility": m.group(1).decode().split("-")[1],
+                "code": snippet,
+                "tags": [],
+            }
+        )
+    return results
 
-with OUT_FILE.open("w", encoding="utf-8") as out:
-    for clar_path in SRC_DIR.iterdir():
-        if clar_path.suffix != ".clar": continue
-        src = clar_path.read_bytes()
-        tree = parser.parse(src)
-        repo = clar_path.name.split("__")[0]
-        file_name = "__".join(clar_path.name.split("__")[1:])  # remove prefix
+all_snippets = []
+for clar in SRC_DIR.iterdir():
+    if clar.suffix == ".clar":
+        all_snippets.extend(slice_file(clar))
 
-        cursor = tree.walk()
-        stack = [cursor.node]
-        while stack:
-            node = stack.pop()
-            if node.type in VISIBILITY_NODES:
-                fn_name_node = node.child_by_field_name("name")
-                fn_name = node_text(src, fn_name_node)
-                code_snippet = node_text(src, node)
-                out.write(json.dumps({
-                    "id": f"{repo}/{file_name}::{fn_name}",
-                    "repo": repo,
-                    "file": file_name,
-                    "fn_name": fn_name,
-                    "visibility": VISIBILITY_NODES[node.type],
-                    "code": code_snippet,
-                    "tags": []
-                }) + "\n")
-            # DFS
-            for i in range(node.child_count - 1, -1, -1):
-                stack.append(node.child(i))
-print("✅ functions.jsonl written to", OUT_FILE)
+with OUT_FILE.open("w", encoding="utf-8") as f:
+    for row in all_snippets:
+        f.write(json.dumps(row) + "\n")
+
+print(
+    textwrap.dedent(
+        f"""
+    ✅ Slicing complete
+    Files scanned   : {len(list(SRC_DIR.iterdir()))}
+    Functions found : {len(all_snippets)}
+    Output          : {OUT_FILE}
+"""
+    ).strip()
+)

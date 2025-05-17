@@ -1,6 +1,3 @@
 [submodule "payfi-copilot-contracts"]
 	path = payfi-copilot-contracts
 	url = git@github.com::ayudhinc/payfi-copilot-contracts.git
-[submodule "tools/tree-sitter-clarity"]
-	path = tools/tree-sitter-clarity
-	url = https://github.com/ayudhinc/tree-sitter-clarity.git
