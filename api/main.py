@@ -35,11 +35,3 @@ class DeployReq(BaseModel):
 
 class DeployResp(BaseModel):
     txid: str
-
-@app.post("/deploy", response_model=DeployResp)
-def deploy_route(req: DeployReq):
-    diags = compile_snippet(req.code)
-    if diags:
-        raise HTTPException(400, "Compilation failed", {"diagnostics": diags})
-    txid = deploy(req.code, req.name)
-    return {"txid": txid}

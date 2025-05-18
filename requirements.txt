@@ -7,7 +7,7 @@ transformers==4.41.1
 peft==0.10.0
 bitsandbytes==0.43.1
 accelerate==0.27.2
+datasets==2.18.0
 
 # Stacks & Clarity
-stacks-transactions==1.6.1
-clarinet-sdk-wasm==0.4.1
+# Handled by Node.js

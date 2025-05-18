@@ -1,5 +1,3 @@
-# pip install "bitsandbytes==0.43.1" "accelerate==0.27.2" "transformers==4.39.3" "peft==0.10.0" "datasets==2.18.0"
-
 from datasets import load_dataset
 from transformers import (
     AutoModelForCausalLM, AutoTokenizer,
