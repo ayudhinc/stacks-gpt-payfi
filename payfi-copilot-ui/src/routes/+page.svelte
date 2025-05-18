@@ -1,46 +1,51 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { code } from '$lib/stores';
-  import { onMount } from 'svelte';
+  import { api } from '$lib/api';
+  import { promptStore, codeStore } from '$lib/stores';
+  import { get } from 'svelte/store';
+  import { Loader } from 'lucide-react';
+  import Button from '$lib/ui/Button.svelte';
+  import Card from '$lib/ui/Card.svelte';
   let chatInput = '';
   let chatHistory: { role: 'user' | 'copilot'; message: string }[] = [];
   let streaming = false;
 
+  $: chatInput = $promptStore;
 
   async function sendMessage() {
     if (!chatInput.trim()) return;
     chatHistory = [...chatHistory, { role: 'user', message: chatInput }];
     streaming = true;
+    promptStore.set(chatInput);
     let streamedCode = '';
-    const res = await fetch('/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: chatInput })
-    });
-    if (res.body && window.TextDecoder) {
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let done = false;
-      while (!done) {
-        const { value, done: doneReading } = await reader.read();
-        if (value) {
-          streamedCode += decoder.decode(value, { stream: true });
-          code.set(streamedCode);
+    try {
+      const stream = await api.generate(chatInput);
+      if (stream && window.TextDecoder) {
+        const reader = stream.getReader();
+        const decoder = new TextDecoder();
+        let done = false;
+        while (!done) {
+          const { value, done: doneReading } = await reader.read();
+          if (value) {
+            streamedCode += decoder.decode(value, { stream: true });
+            codeStore.set(streamedCode);
+          }
+          done = doneReading;
         }
-        done = doneReading;
+        codeStore.set(streamedCode);
+        chatHistory = [...chatHistory, { role: 'copilot', message: streamedCode }];
+      } else {
+        const text = await stream.text();
+        streamedCode = text;
+        codeStore.set(streamedCode);
+        chatHistory = [...chatHistory, { role: 'copilot', message: streamedCode }];
       }
-      code.set(streamedCode);
-      chatHistory = [...chatHistory, { role: 'copilot', message: streamedCode }];
-    } else {
-      const text = await res.text();
-      streamedCode = text;
-      code.set(streamedCode);
-      chatHistory = [...chatHistory, { role: 'copilot', message: streamedCode }];
+    } catch (e) {
+      chatHistory = [...chatHistory, { role: 'copilot', message: 'Error: ' + (e instanceof Error ? e.message : e) }];
     }
     streaming = false;
     chatInput = '';
-    // Optionally, navigate to editor
-    // goto('/editor');
+    promptStore.set('');
   }
 </script>
 

@@ -1,20 +1,38 @@
 <script lang="ts">
   import Monaco from '$lib/Monaco.svelte';
-  import { code, compileDiagnostics, deployTx } from '$lib/stores';
-  import { postCompile, postDeploy } from '$lib/api';
+  import { codeStore, compileStateStore } from '$lib/stores';
+  import { api } from '$lib/api';
+  import { edgeDeploy } from '$lib/edge-deploy';
   import { goto } from '$app/navigation';
   import { get } from 'svelte/store';
+  import Button from '$lib/ui/Button.svelte';
+  import Card from '$lib/ui/Card.svelte';
+  import Alert from '$lib/ui/Alert.svelte';
+  import { Loader } from 'lucide-react';
+
   let compiling = false;
   let deploying = false;
   let canDeploy = false;
 
+  $: compileState = $compileStateStore;
+  $: canDeploy = compileState.success;
+
   async function compile() {
     compiling = true;
-    compileDiagnostics.set(null);
+    compileStateStore.set({ loading: true, diagnostics: [], success: false });
     try {
-      const result = await postCompile(get(code));
-      compileDiagnostics.set(result);
-      canDeploy = result && result.success;
+      const result = await api.compile(get(codeStore));
+      compileStateStore.set({
+        loading: false,
+        diagnostics: result.diagnostics || [],
+        success: result.success,
+      });
+    } catch (e) {
+      compileStateStore.set({
+        loading: false,
+        diagnostics: [e instanceof Error ? e.message : String(e)],
+        success: false,
+      });
     } finally {
       compiling = false;
     }
@@ -23,9 +41,14 @@
   async function deploy() {
     deploying = true;
     try {
-      const res = await postDeploy(get(code));
-      deployTx.set(res);
-      goto(`/tx/${res.txid}`);
+      const { txid, contractId } = await edgeDeploy(get(codeStore));
+      goto(`/tx/${txid}?contractId=${encodeURIComponent(contractId)}`);
+    } catch (e) {
+      compileStateStore.set({
+        loading: false,
+        diagnostics: [e instanceof Error ? e.message : String(e)],
+        success: false,
+      });
     } finally {
       deploying = false;
     }
