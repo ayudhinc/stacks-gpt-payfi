@@ -26,7 +26,7 @@
 </script>
 
 <main class="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white p-4">
-  <Card class="max-w-xl w-full flex flex-col items-center gap-4 p-6">
+  <Card className="max-w-xl w-full flex flex-col items-center gap-4 p-6">
     <h2 class="text-2xl font-bold">Contract Deployed!</h2>
     <div class="flex flex-col gap-2 w-full">
       <div><span class="font-semibold">TxID:</span> <span class="font-mono break-all">{txid}</span></div>

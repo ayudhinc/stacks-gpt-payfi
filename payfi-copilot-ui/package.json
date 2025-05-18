@@ -10,9 +10,8 @@
   },
   "dependencies": {
     "@hirosystems/clarinet-sdk": "^3.0.2",
-    "@stacks/transactions": "^7.0.6",
-    "@sveltejs/adapter-auto": "^6.0.1",
-    "@sveltejs/kit": "^2.21.0",
+    "@stacks/network": "^6.3.0",
+    "@stacks/transactions": "^6.5.0",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.17",
     "lucide-react": "^0.511.0",
@@ -22,7 +21,12 @@
     "tailwindcss": "^3.4.3"
   },
   "devDependencies": {
+    "@sveltejs/adapter-auto": "^6.0.1",
     "@sveltejs/adapter-static": "^3.0.8",
+    "@sveltejs/kit": "^2.21.1",
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tsconfig/svelte": "^5.0.4",
+    "@types/node": "^22.15.18",
     "svelte-preprocess": "^6.0.3",
     "typescript": "^5.3.3",
     "vite": "^6.0.0"
