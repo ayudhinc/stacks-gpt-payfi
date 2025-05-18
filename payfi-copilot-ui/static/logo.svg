@@ -1,5 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <circle cx="32" cy="32" r="32" fill="#2D3748"/>
-  <path d="M20 32c0-6.627 5.373-12 12-12s12 5.373 12 12-5.373 12-12 12S20 38.627 20 32zm12-6a6 6 0 100 12 6 6 0 000-12z" fill="#38BDF8"/>
-  <text x="50%" y="55%" text-anchor="middle" fill="#fff" font-size="14" font-family="Arial" dy=".3em">PF</text>
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#2D3748" />
+    </radialGradient>
+    <linearGradient id="pfGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#6366F1"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="url(#bgGrad)" filter="url(#shadow)"/>
+  <ellipse cx="32" cy="32" rx="13" ry="13" fill="url(#pfGrad)" opacity="0.85"/>
+  <text x="50%" y="54%" text-anchor="middle" fill="#fff" font-size="18" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" letter-spacing="1.5" dy=".33em" style="text-shadow:0 2px 8px #38BDF8,0 0px 2px #1e293b">PF</text>
+  <!-- Sparkle/pilot accent -->
+  <g>
+    <circle cx="48" cy="18" r="2.2" fill="#fff" opacity="0.85"/>
+    <circle cx="48" cy="18" r="1.2" fill="#38BDF8"/>
+    <rect x="47.7" y="15.5" width="0.6" height="5" rx="0.3" fill="#fff" opacity="0.5"/>
+    <rect x="45.5" y="17.7" width="5" height="0.6" rx="0.3" fill="#fff" opacity="0.5"/>
+  </g>
 </svg>
