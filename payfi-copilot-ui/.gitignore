@@ -1,0 +1,25 @@
+# Node
+node_modules/
+
+# Build output
+.svelte-kit/
+build/
+dist/
+
+# IDE/editor
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Env
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+Thumbs.db
