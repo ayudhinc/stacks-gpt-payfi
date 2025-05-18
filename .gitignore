@@ -7,3 +7,6 @@ tools/build/
 __pycache__/
 *.pyc
 *.so
+
+# ── virtual environment ─────────────────────────────
+.venv/
