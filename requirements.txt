@@ -1,0 +1,13 @@
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+python-dotenv==1.0.1
+
+# LLM inference
+transformers==4.41.1
+peft==0.10.0
+bitsandbytes==0.43.1
+accelerate==0.27.2
+
+# Stacks & Clarity
+stacks-transactions==1.6.1
+clarinet-sdk-wasm==0.4.1
