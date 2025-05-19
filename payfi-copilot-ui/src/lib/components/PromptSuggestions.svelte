@@ -34,14 +34,14 @@
   }
 </script>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-4xl mx-auto">
+<div class="mt-2 flex flex-wrap justify-center gap-2 max-w-4xl mx-auto px-2">
   {#each randomPrompts as prompt}
     <button
       on:click|preventDefault={() => handlePromptClick(prompt.prompt)}
-      class="p-4 text-left rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors hover:shadow-md"
+      class="text-sm px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors text-gray-700 dark:text-gray-300 hover:text-sky-600 dark:hover:text-sky-400 whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px]"
+      title={`${prompt.title}: ${prompt.description}`}
     >
-      <div class="font-medium text-gray-900 dark:text-gray-100">{prompt.title}</div>
-      <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">{prompt.description}</div>
+      {prompt.title}
     </button>
   {/each}
 </div>

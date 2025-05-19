@@ -1,19 +1,14 @@
 const greetings = [
-  "How can I help you today?",
-  "What would you like to create?",
-  "What can I help you build today?",
-  "Ready to create something amazing?",
-  "What's on your mind?",
-  "What would you like to work on?",
-  "How can I assist with your project?",
-  "What should we build together?",
-  "What's your next big idea?",
-  "How can I help you code today?",
-  "What would you like to develop?",
-  "Ready to write some smart contracts?",
-  "What can I help you automate?",
-  "What's your coding challenge today?",
-  "How can I assist with your blockchain project?"
+  "What smart contract would you like to create today?",
+  "Describe your smart contract idea in plain English",
+  "Ready to build on Stacks? What's your project?",
+  "What blockchain functionality do you want to implement?",
+  "Need help with a smart contract? I'm here to help!",
+  "What's your next Stacks smart contract project?",
+  "Let's build something amazing on the Stacks blockchain",
+  "What decentralized app are you working on?",
+  "Need help with Clarity smart contracts? Just ask!",
+  "What's your Web3 idea? I can help you build it"
 ];
 
 export function getRandomGreeting(): string {
