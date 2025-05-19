@@ -1,10 +1,11 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import { get } from 'svelte/store';
+  import { goto } from '$app/navigation';
   import Monaco from '$lib/Monaco.svelte';
   import { codeStore, compileStateStore } from '$lib/stores';
   import { api } from '$lib/api';
   import { edgeDeploy } from '$lib/edge-deploy';
-  import { goto } from '$app/navigation';
-  import { get } from 'svelte/store';
   import Button from '$lib/ui/Button.svelte';
   import Card from '$lib/ui/Card.svelte';
   import Alert from '$lib/ui/Alert.svelte';
@@ -62,9 +63,10 @@
         <p class="text-gray-500 dark:text-gray-400">Edit and deploy your Clarity smart contracts</p>
       </div>
       <Button 
-        variant="outline" 
-        on:click={() => goto('/')}
+        variant="secondary"
+        on:click={() => window.location.href = '/'}
         class="flex items-center gap-2"
+        type="button"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
