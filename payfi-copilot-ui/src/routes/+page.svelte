@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import { api } from '$lib/api';
   import { promptStore, codeStore } from '$lib/stores';
+  import { getRandomGreeting } from '$lib/utils/greetings';
   import { get } from 'svelte/store';
   import { Loader } from 'lucide-react';
   import Button from '$lib/ui/Button.svelte';
@@ -60,7 +61,7 @@
     <div class="max-w-3xl mx-auto">
       {#if showSuggestions}
         <div class="mt-16 mb-8">
-          <h2 class="text-2xl font-semibold text-center mb-6">How can I help you today?</h2>
+          <h2 class="text-2xl font-semibold text-center mb-6">{getRandomGreeting()}</h2>
           <PromptSuggestions bind:showSuggestions />
         </div>
       {:else if chatHistory.length === 0}
