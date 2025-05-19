@@ -50,8 +50,8 @@
 </script>
 
 <main class="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white p-4">
-  <img src="/stacks_payfi_logo.png" alt="PayFi Copilot Logo" class="w-32 h-32 mb-8 object-contain bg-white rounded shadow" />
-  <h1 class="text-4xl font-bold mb-4">PayFi Copilot</h1>
+  <img src="/stacks_payfi_logo.png" alt="ChatPayFi Logo" class="w-32 h-32 mb-8 object-contain bg-white rounded shadow" />
+  <h1 class="text-4xl font-bold mb-4">ChatPayFi</h1>
   <p class="mb-8 text-center max-w-xl text-lg opacity-80">AI-assisted Clarity contract builder. Start by chatting with the Copilot to generate your contract.</p>
   <div class="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-lg p-4 flex flex-col gap-4 shadow-lg border border-gray-200 dark:border-gray-700">
     <div class="flex-1 overflow-y-auto max-h-64">

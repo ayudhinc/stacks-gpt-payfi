@@ -1,4 +1,4 @@
-# PayFi Copilot UI
+# ChatPayFi UI
 
 AI-assisted Clarity contract builder
 

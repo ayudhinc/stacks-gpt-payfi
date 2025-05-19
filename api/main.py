@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 from api.llm_service import generate
 from api.clarinet_service import compile_snippet, deploy
 
-app = FastAPI(title="PayFi Copilot API", version="0.1.0")
+app = FastAPI(title="ChatPayFi API", version="0.1.0")
 
 class GenReq(BaseModel):
     prompt: str = Field(..., example="Daily subscription with 3-day trial…")

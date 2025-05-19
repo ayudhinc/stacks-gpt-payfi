@@ -1,4 +1,4 @@
-// API client for PayFi Copilot backend
+// API client for ChatPayFi backend
 const API_BASE = (import.meta as Record<string, any>).env?.VITE_API_BASE || 'http://localhost:8000';
 
 export interface GenerateRequest {

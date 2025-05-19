@@ -55,7 +55,7 @@
 </script>
 
 <main class="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white p-4">
-  <img src="/stacks_payfi_logo.png" alt="PayFi Copilot Logo" class="w-20 h-20 mb-4 object-contain bg-white rounded shadow" />
+  <img src="/stacks_payfi_logo.png" alt="ChatPayFi Logo" class="w-20 h-20 mb-4 object-contain bg-white rounded shadow" />
   <h2 class="text-2xl font-bold mb-4">Clarity Contract Editor</h2>
   <div class="w-full max-w-3xl bg-white dark:bg-gray-800 rounded-lg p-4 flex flex-col gap-4 shadow-lg border border-gray-200 dark:border-gray-700">
     <button class="self-start mb-2 flex items-center gap-2 px-3 py-1 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-sky-400" on:click={() => goto('/')}>⬅ Back to Chat</button>
