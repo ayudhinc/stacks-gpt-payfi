@@ -100,25 +100,43 @@
   </div>
 
   <!-- Input area -->
-  <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+  <div class="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-t border-gray-200/50 dark:border-gray-700/50">
     <div class="max-w-3xl mx-auto p-4">
       <form 
-        class="flex items-end gap-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-600 focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 p-1"
+        class="flex items-end gap-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-600 focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 p-1.5"
         on:submit|preventDefault={sendMessage}
       >
-        <textarea
-          class="flex-1 p-2 bg-transparent border-0 focus:ring-0 resize-none max-h-32"
-          rows="1"
-          bind:value={chatInput}
-          placeholder="Message ChatPayFi..."
-          disabled={streaming}
-          on:keydown={(e) => {
-            if (e.key === 'Enter' && !e.shiftKey && !streaming) {
-              e.preventDefault();
-              sendMessage();
-            }
-          }}
-        ></textarea>
+        <div class="flex-1 relative min-h-[2.5rem]">
+          <div 
+            class="invisible whitespace-pre-wrap break-words p-2 max-w-full pointer-events-none"
+            style="min-height: 1.5rem;"
+          >
+            {chatInput || ' '}
+            {#if chatInput.endsWith('\n')}
+              <br />
+            {/if}
+          </div>
+          <textarea
+            class="absolute top-0 left-0 w-full h-full p-2 bg-transparent border-0 focus:ring-0 resize-none overflow-hidden"
+            rows="1"
+            bind:value={chatInput}
+            placeholder="Message ChatPayFi..."
+            disabled={streaming}
+            on:keydown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey && !streaming) {
+                e.preventDefault();
+                sendMessage();
+              }
+            }}
+            on:input={(e) => {
+              const target = e.target as HTMLTextAreaElement;
+              // Reset height to auto to get the correct scrollHeight
+              target.style.height = 'auto';
+              // Set new height, but cap at 200px
+              target.style.height = `${Math.min(target.scrollHeight, 200)}px`;
+            }}
+          ></textarea>
+        </div>
         <button
           class="p-2 rounded-md text-sky-500 hover:bg-sky-100 dark:hover:bg-sky-900 disabled:opacity-50 disabled:cursor-not-allowed"
           type="submit"
