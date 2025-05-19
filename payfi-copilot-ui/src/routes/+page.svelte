@@ -78,8 +78,10 @@
   <div class="flex-1 overflow-y-auto p-4 relative">
     <div class="max-w-3xl mx-auto min-h-full flex flex-col">
       {#if showSuggestions && chatHistory.length === 0}
-        <div class="flex-1 flex flex-col items-center justify-center">
-          <h2 class="text-2xl font-semibold text-center mb-8">{getRandomGreeting()}</h2>
+        <div class="flex-1 flex flex-col items-center justify-center pt-16">
+          <h2 class="text-2xl font-medium text-center text-gray-700 dark:text-gray-300 mb-12 px-4 leading-relaxed">
+            {getRandomGreeting()}
+          </h2>
         </div>
       {:else if chatHistory.length === 0}
         <div class="flex-1 flex items-center justify-center">
