@@ -1,1 +1,4 @@
-{}
+{
+    "name": "ChatPayFi",
+    "description": "ChatPayFi is a research prototype that converts natural-language payment specifications into runnable Clarity smart-contracts on the Stacks blockchain, then compiles, deploys and exposes them as sBTC pay-links."
+}
