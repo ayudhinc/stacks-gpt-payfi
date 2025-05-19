@@ -3,7 +3,7 @@ from peft import PeftModel
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 BASE    = os.getenv("PAYFI_BASE_MODEL",  "meta-llama/Meta-Llama-3-8B-Instruct")
-ADAPTER = os.getenv("PAYFI_LORA_PATH",   "payfi-copilot-lora")  # adjust later
+ADAPTER = os.getenv("PAYFI_LORA_PATH",   "ayudhinc/payfi-copilot-lora")
 
 # lazy singletons so cold-start is fast
 _tokenizer = _model = None

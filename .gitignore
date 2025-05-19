@@ -13,3 +13,4 @@ __pycache__/
 
 # ── LoRA checkpoints ─────────────────────────────────
 payfi-lora-runpod
+payfi-copilot-lora
