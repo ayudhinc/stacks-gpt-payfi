@@ -94,7 +94,7 @@ curl -X POST $VITE_API_BASE/generate   -H "content-type: application/json"   -d 
 
 ## 💰 Training Stats
 
-* **Runtime:** 46 min pure training (8 h incl. setup)  
+* **Runtime:** ~6 H pure training (8 h incl. setup)  
 * **Hardware:** RunPod H100 PCIe (24 vCPU / 188 GB RAM)  
 * **Cost:** ~ $11
 

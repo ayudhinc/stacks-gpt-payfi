@@ -25,22 +25,19 @@ authoring while preserving the security guarantees of sBTC.
 ## 2 System Overview
 ```mermaid
 graph TD
-  subgraph Browser
-    A[Prompt
-UI]
-    B[Monaco
-Editor]
+  subgraph "Browser"
+    A[Prompt UI]
+    B[Monaco Editor]
   end
-  subgraph API (GPU VM)
+  subgraph "API (GPU VM)"
     C[/generate]
     D[/compile]
   end
-  subgraph Clarity
-Simnet
-    E[clarinet console]
+  subgraph "Clarity Simnet"
+    E[clarinet console]
   end
-  F[edge‑deploy.ts
-(Node)]
+  F[edge-deploy.ts Node]
+  
   A -->|JSON| C
   C --> B
   B -->|code| D
