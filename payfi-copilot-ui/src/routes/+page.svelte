@@ -266,13 +266,13 @@
   </div>
 
   <!-- Floating Action Buttons -->
-  <div class="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-4">
+  <div class="fixed bottom-16 right-6 z-40 flex flex-col items-end gap-4">
     <button 
       onclick={toggleEditor}
-      class="flex items-center justify-center w-12 h-12 rounded-full bg-sky-600 hover:bg-sky-700 text-white shadow-lg transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+      class="flex items-center justify-center w-14 h-14 rounded-full bg-sky-600 hover:bg-sky-700 text-white shadow-lg transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
       aria-label="Toggle Editor"
     >
-      <Edit3 size={24} />
+      <Edit3 size={26} />
     </button>
     
     <a 
@@ -280,16 +280,14 @@
       target="_blank" 
       rel="noopener" 
       aria-label="Visit ayudh.ai"
-      class="relative group"
+      class="relative group w-14 h-14 flex items-center justify-center"
     >
-      <span class="relative flex items-center justify-center rounded-full shadow-2xl">
-        <span class="absolute inset-0 rounded-full border-4 border-emerald-400 opacity-70 animate-green-pulse"></span>
-        <img 
-          src="/ayudh.png" 
-          alt="Ayudh Logo" 
-          class="w-12 h-12 object-contain rounded-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700" 
-        />
-      </span>
+      <span class="absolute inset-0 rounded-full border-4 border-emerald-400 opacity-70 animate-green-pulse"></span>
+      <img 
+        src="/ayudh.png" 
+        alt="Ayudh Logo" 
+        class="w-12 h-12 object-contain rounded-full bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700" 
+      />
     </a>
   </div>
   

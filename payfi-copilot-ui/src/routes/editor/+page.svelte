@@ -60,8 +60,10 @@
     
 
     <!-- Editor Area -->
-    <div class="flex-1 overflow-hidden">
-      <Monaco bind:value={$codeStore} language="clarity" class="h-full" />
+    <div class="flex-1 flex flex-col min-h-0">
+      <div class="flex-1 overflow-auto">
+        <Monaco bind:value={$codeStore} language="clarity" class="h-full w-full" />
+      </div>
     </div>
     
     <!-- Editor Header with Controls -->
