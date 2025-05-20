@@ -2,6 +2,29 @@
   import "../app.css";
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
+  import { editorStore, toggleEditor, setEditorOpen } from '$lib/stores/editor';
+  import { get } from 'svelte/store';
+  
+  // Initialize editor state from URL
+  onMount(() => {
+    const params = new URLSearchParams(window.location.search);
+    const isOpen = params.get('editor') === 'open';
+    
+    // Handle initial state
+    if (isOpen) {
+      setEditorOpen(true);
+    }
+    
+    // Handle browser back/forward buttons
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const isOpen = params.get('editor') === 'open';
+      setEditorOpen(isOpen);
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  });
   
   let dark = true;
   
@@ -116,30 +139,35 @@
               aria-labelledby="user-menu-button"
               tabindex="-1"
             >
-              <a 
-                href="/" 
-                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+              <button 
+                type="button"
+                class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 role="menuitem"
-                tabindex="-1"
+                on:click={() => {
+                  goto('/');
+                  closeDropdown();
+                }}
               >
                 Chat
-              </a>
-              <a 
-                href="/editor" 
-                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+              </button>
+              <button 
+                type="button"
+                class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 role="menuitem"
-                tabindex="-1"
+                on:click={() => {
+                  toggleEditor();
+                  closeDropdown();
+                }}
               >
-                Editor
-              </a>
-              <a 
-                href="#" 
-                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                {$editorStore.isOpen ? 'Close Editor' : 'Open Editor'}
+              </button>
+              <button 
+                type="button"
+                class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 role="menuitem"
-                tabindex="-1"
               >
                 Settings
-              </a>
+              </button>
             </div>
           </div>
         </div>
