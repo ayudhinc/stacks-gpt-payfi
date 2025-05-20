@@ -19,11 +19,12 @@
   import PromptSuggestions from '$lib/components/PromptSuggestions.svelte';
   import Editor from './editor/+page.svelte';
   
-  let chatInput = '';
-  let chatHistory: { role: 'user' | 'copilot'; message: string }[] = [];
-  let streaming = false;
-  let showSuggestions = true;
-  let hasUserTyped = false; // Track if user has started typing
+  // Reactive state variables
+  let chatInput = $state('');
+  let chatHistory = $state<{ role: 'user' | 'copilot'; message: string }[]>([]);
+  let streaming = $state(false);
+  let showSuggestions = $state(true);
+  let hasUserTyped = $state(false); // Track if user has started typing
 
   
   // Reset input state on page load
@@ -145,7 +146,10 @@
         class={`flex items-end gap-2 bg-white dark:bg-gray-800 rounded-2xl border border-gray-300 dark:border-gray-600 focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 transition-all duration-300 ${
           hasUserTyped ? 'p-1.5' : 'p-4 shadow-xl max-w-2xl mx-auto w-full'
         }`}
-        on:submit|preventDefault={sendMessage}
+        onsubmit={(e) => {
+          e.preventDefault();
+          sendMessage();
+        }}
       >
         <div class="flex-1 relative min-h-[2.5rem]">
           <div 
@@ -163,13 +167,13 @@
             bind:value={chatInput}
             placeholder={chatInput.trim() ? 'Message ChatPayFi...' : 'Describe the smart contract you want to create...'}
             disabled={streaming}
-            on:keydown={(e) => {
+            onkeydown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey && !streaming) {
                 e.preventDefault();
                 sendMessage();
               }
             }}
-            on:input={(e) => {
+            oninput={(e) => {
               const target = e.target as HTMLTextAreaElement;
               target.style.height = 'auto';
               target.style.height = `${Math.min(target.scrollHeight, 200)}px`;
@@ -177,7 +181,7 @@
                 hasUserTyped = true;
               }
             }}
-            on:focus={() => {
+            onfocus={() => {
               if (chatInput.trim()) {
                 hasUserTyped = true;
               }
@@ -211,7 +215,7 @@
       <div class="border-b border-gray-200 dark:border-gray-700 p-4 flex justify-between items-center">
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">Smart Contract Editor</h2>
         <button 
-          on:click={toggleEditor}
+          onclick={toggleEditor}
           class="p-1 rounded-md text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
           aria-label="Close editor"
         >
@@ -220,7 +224,8 @@
       </div>
       <div class="flex-1 overflow-auto">
         {#if isEditorOpen}
-          <svelte:component this={Editor} />
+          {@const EditorComponent = Editor}
+          <EditorComponent />
         {/if}
       </div>
     </div>
@@ -229,7 +234,7 @@
   <!-- Floating Action Buttons -->
   <div class="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-4">
     <button 
-      on:click={toggleEditor}
+      onclick={toggleEditor}
       class="flex items-center justify-center w-12 h-12 rounded-full bg-sky-600 hover:bg-sky-700 text-white shadow-lg transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
       aria-label="Toggle Editor"
     >
