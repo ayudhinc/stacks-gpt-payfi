@@ -149,22 +149,12 @@
           </div>
         </div>
         <!-- Dark mode logo -->
-        <div class="relative flex justify-center mb-8 hidden dark:flex" style="transform: scale(0.7); transform-origin: center;">
-          <div class="absolute inset-0 bg-white dark:bg-[#0a0a0a] rounded-2xl" style="
-            -webkit-mask: radial-gradient(ellipse at center, black 75%, transparent 90%);
-            mask: radial-gradient(ellipse at center, black 75%, transparent 90%);
-          "></div>
-          <div class="relative">
-            <img 
-              src="/ChatPayPiDark.png" 
-              alt="ChatPayFi Logo" 
-              class="max-w-full h-auto"
-              style="
-                -webkit-mask: radial-gradient(ellipse at center, black 80%, transparent 95%);
-                mask: radial-gradient(ellipse at center, black 80%, transparent 95%);
-              "
-            />
-          </div>
+        <div class="flex justify-center mb-8 hidden dark:flex" style="transform: scale(0.7); transform-origin: center;">
+          <img 
+            src="/ChatPayPiDark.png" 
+            alt="ChatPayFi Logo" 
+            class="max-w-full h-auto"
+          />
         </div>
         <h2 class="text-2xl font-medium text-zinc-700 dark:text-zinc-300 mb-4 leading-relaxed">
           {getRandomGreeting()}
@@ -268,17 +258,6 @@
           <div class="h-full flex flex-col">
             <div class="flex-1 overflow-auto">
               <Editor />
-            </div>
-            <div class="border-t border-zinc-200/50 dark:border-zinc-800/50 p-3 bg-zinc-50/50 dark:bg-zinc-900/50 flex justify-between items-center">
-              <div class="text-xs text-zinc-500 dark:text-zinc-400">
-                Press <kbd class="px-1.5 py-0.5 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded text-xs font-mono">Ctrl+S</kbd> to save
-              </div>
-              <button 
-                onclick={toggleEditor}
-                class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors"
-              >
-                Close Editor
-              </button>
             </div>
           </div>
         {/if}
