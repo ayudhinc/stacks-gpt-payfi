@@ -89,18 +89,18 @@
   });
 </script>
 
-<div class="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-  <header class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+<div class="min-h-screen bg-white dark:bg-[#0a0a0a] transition-colors duration-300">
+  <header class="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
           <img src="/stacks_payfi_logo.png" alt="ChatPayFi Logo" class="w-10 h-10 object-contain bg-white rounded shadow" />
-          <span class="ml-2 font-bold text-xl text-gray-900 dark:text-white">ChatPayFi</span>
+          <span class="ml-2 font-bold text-xl text-zinc-900 dark:text-white">ChatPayFi</span>
         </div>
         
         <div class="flex items-center space-x-4">
           <button 
-            class="p-2 rounded-full text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            class="p-2 rounded-full text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
             on:click={toggleDark}
             aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
           >

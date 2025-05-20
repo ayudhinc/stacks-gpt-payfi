@@ -89,13 +89,13 @@
   }
 </script>
 
-<div class="min-h-full flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 overflow-hidden">
+<div class="min-h-full flex flex-col bg-zinc-50 dark:bg-[#0a0a0a] text-zinc-900 dark:text-zinc-100 overflow-hidden">
   <div class="flex-1 overflow-y-auto relative">
     <div class={`mx-auto min-h-full flex flex-col transition-all duration-300 ${isEditorOpen ? 'max-w-[50%]' : 'max-w-3xl'}`}>
       <!-- Chat messages -->
       <div class={`space-y-6 p-4 ${chatHistory.length === 0 ? 'hidden' : 'pb-24'}`}>
         {#each chatHistory as msg}
-          <div class="group w-full text-gray-800 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700">
+          <div class="group w-full text-zinc-800 dark:text-zinc-100 border-b border-zinc-200 dark:border-zinc-800">
             <div class="text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-3xl xl:max-w-3xl p-4 md:py-6 flex lg:px-0 m-auto">
               <div class={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                 msg.role === 'user' 
@@ -125,25 +125,61 @@
 
   <!-- Input area -->
   <div class={`fixed left-0 right-0 transition-all duration-300 ${
-    hasUserTyped ? 'bottom-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-t border-gray-200/50 dark:border-gray-700/50' 
+    hasUserTyped ? 'bottom-0 bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-sm border-t border-zinc-200/50 dark:border-zinc-700/50' 
     : 'bottom-1/2 transform translate-y-1/2 max-w-2xl mx-auto px-4 w-full flex flex-col items-center justify-center'
   }`}>
     {#if showSuggestions && chatHistory.length === 0}
       <div class="w-full max-w-2xl mx-auto px-4 mb-6 text-center">
-        <h2 class="text-2xl font-medium text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+        <!-- Light mode logo -->
+        <div class="relative flex justify-center mb-8 dark:hidden" style="transform: scale(0.7); transform-origin: center;">
+          <div class="absolute inset-0 bg-white dark:bg-[#0a0a0a] rounded-2xl" style="
+            -webkit-mask: radial-gradient(ellipse at center, black 75%, transparent 90%);
+            mask: radial-gradient(ellipse at center, black 75%, transparent 90%);
+          "></div>
+          <div class="relative">
+            <img 
+              src="/ChatPayFiLight.png" 
+              alt="ChatPayFi Logo" 
+              class="max-w-full h-auto"
+              style="
+                -webkit-mask: radial-gradient(ellipse at center, black 80%, transparent 95%);
+                mask: radial-gradient(ellipse at center, black 80%, transparent 95%);
+              "
+            />
+          </div>
+        </div>
+        <!-- Dark mode logo -->
+        <div class="relative flex justify-center mb-8 hidden dark:flex" style="transform: scale(0.7); transform-origin: center;">
+          <div class="absolute inset-0 bg-white dark:bg-[#0a0a0a] rounded-2xl" style="
+            -webkit-mask: radial-gradient(ellipse at center, black 75%, transparent 90%);
+            mask: radial-gradient(ellipse at center, black 75%, transparent 90%);
+          "></div>
+          <div class="relative">
+            <img 
+              src="/ChatPayPiDark.png" 
+              alt="ChatPayFi Logo" 
+              class="max-w-full h-auto"
+              style="
+                -webkit-mask: radial-gradient(ellipse at center, black 80%, transparent 95%);
+                mask: radial-gradient(ellipse at center, black 80%, transparent 95%);
+              "
+            />
+          </div>
+        </div>
+        <h2 class="text-2xl font-medium text-zinc-700 dark:text-zinc-300 mb-4 leading-relaxed">
           {getRandomGreeting()}
         </h2>
       </div>
     {:else if chatHistory.length === 0}
       <div class="w-full max-w-2xl mx-auto px-4 mb-6 text-center">
-        <p class="text-gray-500 dark:text-gray-400">Send a message to get started</p>
+        <p class="text-zinc-500 dark:text-zinc-400">Send a message to get started</p>
       </div>
     {/if}
     <div class={`transition-all duration-300 ${
       hasUserTyped ? 'max-w-3xl mx-auto p-4' : 'w-full'
     }`}>
       <form 
-        class={`flex items-end gap-2 bg-white dark:bg-gray-800 rounded-2xl border border-gray-300 dark:border-gray-600 focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 transition-all duration-300 ${
+        class={`flex items-end gap-2 bg-white dark:bg-[#0a0a0a] rounded-2xl border border-zinc-300 dark:border-zinc-700 focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 transition-all duration-300 ${
           hasUserTyped ? 'p-1.5' : 'p-4 shadow-xl max-w-2xl mx-auto w-full'
         }`}
         onsubmit={(e) => {
