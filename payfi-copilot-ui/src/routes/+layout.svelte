@@ -89,7 +89,7 @@
   });
 </script>
 
-<div class="min-h-screen bg-white dark:bg-[#0a0a0a] transition-colors duration-300">
+<div class="min-h-screen bg-white dark:bg-[#111111] transition-colors duration-300">
   <header class="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">

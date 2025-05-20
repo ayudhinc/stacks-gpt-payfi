@@ -3,6 +3,7 @@
   import { api } from '$lib/api';
   import { promptStore, codeStore } from '$lib/stores';
   import { onMount, onDestroy } from 'svelte';
+  import Editor from './editor/+page.svelte';
   import { editorStore, toggleEditor } from '$lib/stores/editor';
   import { get } from 'svelte/store';
   import { getRandomGreeting } from '$lib/utils/greetings';
@@ -17,7 +18,6 @@
   import Button from '$lib/ui/Button.svelte';
   import Card from '$lib/ui/Card.svelte';
   import PromptSuggestions from '$lib/components/PromptSuggestions.svelte';
-  import Editor from './editor/+page.svelte';
   
   // Reactive state variables
   let chatInput = $state('');
@@ -243,25 +243,44 @@
     </div>
   </div>
 
-  <!-- Editor Pane (50% width) - Slides in from right -->
+  <!-- Editor Pane (40% width) - Slides in from right -->
   <div 
-    class={`fixed top-0 right-0 h-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 transition-transform duration-300 ease-in-out z-30 shadow-xl ${isEditorOpen ? 'translate-x-0 w-1/2' : 'translate-x-full w-1/2'}`}
+    class={`fixed top-0 right-0 h-full bg-white dark:bg-[#0a0a0a] border-l border-zinc-200/50 dark:border-zinc-800/50 transition-all duration-300 ease-in-out z-30 shadow-2xl ${isEditorOpen ? 'translate-x-0 w-2/5' : 'translate-x-full w-2/5'}`}
   >
     <div class="h-full flex flex-col">
-      <div class="border-b border-gray-200 dark:border-gray-700 p-4 flex justify-between items-center">
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">Smart Contract Editor</h2>
+      <div class="border-b border-zinc-200/50 dark:border-zinc-800/50 p-4 bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-sm flex justify-between items-center">
+        <div class="flex items-center gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-500" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+          <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Smart Contract Editor</h2>
+        </div>
         <button 
           onclick={toggleEditor}
-          class="p-1 rounded-md text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          class="p-1.5 rounded-md text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-500 dark:hover:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-sky-500/50 transition-colors"
           aria-label="Close editor"
         >
-          <X size={20} />
+          <X size={18} />
         </button>
       </div>
-      <div class="flex-1 overflow-auto">
+      <div class="flex-1 overflow-hidden flex flex-col">
         {#if isEditorOpen}
-          {@const EditorComponent = Editor}
-          <EditorComponent />
+          <div class="h-full flex flex-col">
+            <div class="flex-1 overflow-auto">
+              <Editor />
+            </div>
+            <div class="border-t border-zinc-200/50 dark:border-zinc-800/50 p-3 bg-zinc-50/50 dark:bg-zinc-900/50 flex justify-between items-center">
+              <div class="text-xs text-zinc-500 dark:text-zinc-400">
+                Press <kbd class="px-1.5 py-0.5 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded text-xs font-mono">Ctrl+S</kbd> to save
+              </div>
+              <button 
+                onclick={toggleEditor}
+                class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors"
+              >
+                Close Editor
+              </button>
+            </div>
+          </div>
         {/if}
       </div>
     </div>
